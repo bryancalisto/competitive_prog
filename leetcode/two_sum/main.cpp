@@ -7,23 +7,24 @@ vector<int> split(const string &);
 
 vector<int> twoSum(vector<int> &nums, int target)
 {
-  map<int, int> ht;
+  vector<int> res = {0, 0};
   int tmp;
-  vector<int> res;
-  ht[nums[0]] = 1; // index+1 to overcome the hashtable default value. I.E ht[someValue] = 0, when someValue was not in the hashtable
+  map<int, int> ht;
 
-  for (int j = 1; j < nums.size(); j++)
+  ht[nums[0]] = 1;
+
+  for (int i = 1; i < nums.size(); i++)
   {
-    tmp = target - nums[j];
+    tmp = target - nums[i];
+
     if (ht[tmp] > 0)
     {
-      res.push_back(ht[tmp] - 1);
-      res.push_back(j);
-      ht[tmp]--;
+      res[0] = ht[tmp] - 1;
+      res[1] = i;
+      printf("res[0]=%d res[1]=%d\n", res[0], res[1]);
       break;
     }
-
-    ht[nums[j]] = j + 1;
+    ht[nums[i]] = i + 1;
   }
 
   return res;
