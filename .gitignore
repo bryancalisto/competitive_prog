@@ -38,4 +38,5 @@
 *.vscode
 *.iml
 out
+lib
 *.idea
