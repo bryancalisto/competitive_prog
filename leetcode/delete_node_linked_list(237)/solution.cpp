@@ -21,8 +21,8 @@ public:
     }
 
     node->val = node->next->val;
-    node->next = NULL;
     delete node->next;
+    node->next = NULL;
   }
 };
 
