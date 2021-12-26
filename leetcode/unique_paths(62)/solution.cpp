@@ -5,25 +5,28 @@ using namespace std;
 class Solution
 {
 public:
-  int helper(int m, int n, map<string, int> &mem)
+  int helper(int m, int n, vector<vector<int>> &dp)
   {
-    if (mem[to_string(m) + "," + to_string(n)] != 0)
+    if (dp[m][n] != -1)
     {
-      return mem[to_string(m) + "," + to_string(n)];
+      return dp[m][n];
     }
 
     if (m == 1 || n == 1)
     {
       return 1;
     }
-    mem[to_string(m) + "," + to_string(n)] = helper(m - 1, n, mem) + helper(m, n - 1, mem);
-    return mem[to_string(m) + "," + to_string(n)];
+
+    dp[m][n] = helper(m - 1, n, dp) + helper(m, n - 1, dp);
+
+    return dp[m][n];
   }
 
   int uniquePaths(int m, int n)
   {
-    map<string, int> mem;
-    return helper(m, n, mem);
+    vector<vector<int>> dp;
+    dp.assign(m + 1, vector<int>(n + 1, -1));
+    return helper(m, n, dp);
   }
 };
 
