@@ -2,17 +2,23 @@
 
 function birthday(s, d, m) {
   let count = 0;
+  let prevStart = 0;
+  let sum = 0;
 
-  for (let i = 0; i < s.length; i++) {
-    let sum = 0;
+  for (let i = 0; i < m; i++) {
+    sum += s[i];
+  }
 
-    for (let j = 0; j < m && j + i < s.length; j++) {
-      sum += s[j + i];
-    }
+  if (sum === d) {
+    count++;
+  }
 
+  for (let i = m; i < s.length; i++) {
+    sum += s[i] - s[prevStart];
     if (sum === d) {
       count++;
     }
+    prevStart++
   }
 
   return count;
