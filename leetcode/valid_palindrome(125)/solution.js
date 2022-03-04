@@ -1,6 +1,4 @@
 var isPalindrome = function (s) {
-  const stack = [];
-  const queue = [];
   let i = 0;
   let j = s.length - 1;
 
@@ -18,7 +16,6 @@ var isPalindrome = function (s) {
       continue;
     }
 
-    console.log(char0, char1);
     if (char0 !== char1) {
       return false;
     }
