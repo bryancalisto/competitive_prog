@@ -14,25 +14,24 @@ class Solution
 public:
   bool hasCycle(ListNode *head)
   {
-    unordered_set<ListNode *> set;
-
     if (!head)
     {
       return false;
     }
 
-    while (head)
+    /* Based on the turtle hare algorithm*/
+    ListNode *oneStep = head;
+    ListNode *twoStep = head;
+
+    while (twoStep && twoStep->next)
     {
-      if (set.find(head) != set.end())
+      oneStep = oneStep->next;
+      twoStep = twoStep->next->next;
+
+      if (oneStep == twoStep)
       {
         return true;
       }
-      else
-      {
-        set.insert(head);
-      }
-
-      head = head->next;
     }
 
     return false;
@@ -46,7 +45,7 @@ int main()
   head->next = &ListNode(2);
   head->next->next = &ListNode(0);
   head->next->next->next = &ListNode(4);
-  head->next->next->next->next = head->next;
+  // head->next->next->next->next = head->next;
 
   cout << sol.hasCycle(head);
 }
