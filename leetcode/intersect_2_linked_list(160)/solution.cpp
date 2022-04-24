@@ -14,29 +14,16 @@ class Solution
 public:
   ListNode *getIntersectionNode(ListNode *headA, ListNode *headB)
   {
-    map<ListNode *, int> tbl;
     ListNode *ptrA = headA;
     ListNode *ptrB = headB;
 
-    while (ptrA)
+    while (ptrA != ptrB)
     {
-      tbl[ptrA]++;
-      ptrA = ptrA->next;
+      ptrA = ptrA ? ptrA->next : headB;
+      ptrB = ptrB ? ptrB->next : headA;
     }
 
-    while (ptrB)
-    {
-      tbl[ptrB]++;
-
-      if (tbl[ptrB] > 1)
-      {
-        return ptrB;
-      }
-
-      ptrB = ptrB->next;
-    }
-
-    return nullptr;
+    return ptrA;
   }
 };
 
