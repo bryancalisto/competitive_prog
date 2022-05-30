@@ -7,28 +7,28 @@ using namespace std;
 class Solution
 {
 public:
-  int stairs;
-  int _climbStairs(int i, map<int, int> &mem)
-  {
-    int count = 0;
-
-    if (mem.count(i))
-      return mem[i];
-
-    if (i >= stairs)
-      return 1;
-
-    count += _climbStairs(i + 1, mem) + _climbStairs(i + 2, mem);
-
-    mem[i] = count;
-    return count;
-  }
+  map<int, int> mem;
 
   int climbStairs(int n)
   {
-    stairs = n - 1; // last stair
-    map<int, int> mem;
-    return _climbStairs(0, mem);
+    if (mem[n])
+    {
+      return mem[n];
+    }
+
+    if (n == 0)
+    {
+      return 1;
+    }
+
+    if (n < 0)
+    {
+      return 0;
+    }
+
+    int res = climbStairs(n - 1) + climbStairs(n - 2);
+    mem[n] = res;
+    return res;
   }
 };
 
