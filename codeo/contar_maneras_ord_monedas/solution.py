@@ -3,17 +3,24 @@
 N = int(input())
 monedas = list(map(int, input().split(' ')))
 M = int(input())
+nValores = 5001  # Segun constraint de maximo valor y +1 porque incluye el 0
+
+tbl = [[0 for i in range(N)] for j in range(nValores)]
+
+for iMoneda in range(N):  # Si tienes un valor de 0 (fila 0), necesitas solo un set para representar ese valor: {}
+    tbl[0][iMoneda] = 1
+
+for valor in range(nValores):
+    for iMoneda in range(N):
+        if iMoneda > 0:
+            tbl[valor][iMoneda] = tbl[valor][iMoneda-1]
+
+        restante = valor - monedas[iMoneda]
+
+        if restante >= 0:
+            tbl[valor][iMoneda] = (tbl[valor][iMoneda] + tbl[restante][iMoneda]) % 1000000007
 
 
 for i in range(M):
-    cantidad = int(input())
-
-    tbl = [0] * (cantidad + 1)  # cada espacio representa una cantidad de monedas hasta la cantidad que buscamos, que es la ultima
-    tbl[0] = 1  # si hay 0 monedas, hay 1 forma de distribuirlas: 0
-
-    for i in range(len(monedas)):
-        for j in range(monedas[i], len(tbl)):
-            if monedas[i] <= j:
-                tbl[j] = (tbl[j] + tbl[j - monedas[i]]) % 1000000007
-
-    print(tbl[cantidad])
+    valor = int(input())
+    print(tbl[valor][N - 1])
