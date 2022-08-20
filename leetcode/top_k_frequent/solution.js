@@ -1,17 +1,23 @@
 var topKFrequent = function (nums, k) {
-  const tbl = {}
+  const frequency = Array.from({ length: nums.length + 1 }, () => [])
+  const counters = {}
 
   for (const num of nums) {
-    if (!tbl[num]) {
-      tbl[num] = 0
-    }
-
-    tbl[num]++
+    counters[num] = 1 + (counters[num] ?? 0)
   }
 
-  const vals = Object.entries(tbl).sort((a, b) => b[1] - a[1]).splice(0, k).map(entry => entry[0])
+  for (const key in counters) {
+    frequency[counters[key]].push(key)
+  }
 
-  return vals
+  const res = []
+
+  for (let i = frequency.length - 1; i > 0; i--) {
+    for (const num of frequency[i]) {
+      res.push(num)
+      if (res.length === k) return res
+    }
+  }
 };
 
 console.log(topKFrequent([1, 1, 1, 2, 2, 3, 7, 7, 7], 2));
